@@ -59,7 +59,9 @@ function startGame() {
     winner = getWinner(computerChoice);
   }
   // const winner = getWinner(computerChoice, playerChoice);
-  let message = `You picked ${playerChoice || DEFAULT_USER_CHOICE}, computer picked ${computerChoice} therefore you`;
+  let message = `You picked ${
+    playerChoice || DEFAULT_USER_CHOICE
+  }, computer picked ${computerChoice} therefore you`;
   if (winner === RESULT_DRAW) {
     message = message + " had a draw";
   } else if (winner === RESULT_PLAYER_WINS) {
@@ -72,3 +74,28 @@ function startGame() {
 }
 
 startGameBtn.addEventListener("click", startGame);
+
+// not related to game
+const sumUp = (...numbers) => {
+  //(a,b,...numbers) olabilir ama (...numbers, a, b) olmaz
+  let sum = 0;
+  for (const num of numbers) {
+    sum += num;
+  }
+  return sum;
+};
+
+const subtractUp = function () {
+  let sum = 0;
+  // it's built into Javascript, you can use it inside of functions but only inside of functions that use the function keyword and it gives you an array-like object, not a true array but array-like with all the arguments this function got. So before the rest operator was introduced which happened with ES6, this was the way of building a function like this one, so this was then the automatically merged array.
+  for (const num of arguments) {
+    // don't use that
+    sum -= num;
+  }
+  return sum;
+};
+
+console.log(sumUp(1, 5, 10, -3, 6, 10));
+console.log(sumUp(1, 5, 10, -3, 6, 10, 25, 88));
+
+console.log(subtractUp(1, 5, 10, 20)); // arrow functions da calismadi!!!
