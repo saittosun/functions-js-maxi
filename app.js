@@ -76,7 +76,7 @@ function startGame() {
 startGameBtn.addEventListener("click", startGame);
 
 // not related to game
-const sumUp = (resultHandler, ...numbers) => {
+const combine = (resultHandler, operation, ...numbers) => {
   const numberValidate = (number) => {
     // simply check if number is not a number and if that's the case, replace it with zero and otherwise keep it
     return isNaN(number) ? 0 : number;
@@ -84,29 +84,62 @@ const sumUp = (resultHandler, ...numbers) => {
   //(a,b,...numbers) olabilir ama (...numbers, a, b) olmaz
   let sum = 0;
   for (const num of numbers) {
-    sum += numberValidate(num);
+    if (operation === "ADD") {
+      sum += numberValidate(num);
+    } else {
+      sum -= numberValidate(num);
+    }
   }
-  return resultHandler(sum);
+  resultHandler(sum);
 };
 
-const showResult = (result) => {
-  alert("the result after adding all number is " + result);
+const showResult = (messageText, result) => {
+  alert(messageText + " " + result);
 };
 
-const subtractUp = function () {
-  let sum = 0;
-  // it's built into Javascript, you can use it inside of functions but only inside of functions that use the function keyword and it gives you an array-like object, not a true array but array-like with all the arguments this function got. So before the rest operator was introduced which happened with ES6, this was the way of building a function like this one, so this was then the automatically merged array.
-  for (const num of arguments) {
-    // don't use that
-    sum -= num;
-  }
-  return sum;
-};
+// const subtractUp = function (resultHandler, ...numbers) {
+//   let sum = 0;
+//   // it's built into Javascript, you can use it inside of functions but only inside of functions that use the function keyword and it gives you an array-like object, not a true array but array-like with all the arguments this function got. So before the rest operator was introduced which happened with ES6, this was the way of building a function like this one, so this was then the automatically merged array.
+//   for (const num of numbers) {
+//     // don't use that
+//     sum -= num;
+//   }
+//   resultHandler(sum);
+// };
 
-sumUp(showResult, 1, 5, "qsdf", -3, 6, 10);
-sumUp(showResult, 1, 5, 10, -3, 6, 10, 25, 88);
+// bind as a method on your function object and you do execute this and what bind will do is it will create a new function, a new reference at a function which it returns to you which will be preconfigured regarding the arguments it receives and that's the interesting part. So with bind, you can create a function which is not immediately executed, what would be the case if you manually call it like this but instead, which is prepared for a future execution, where certain values for certain parameters which you already know at this point of time are already set. bind takes at least two arguments,
 
-console.log(subtractUp(1, 5, 10, 20)); // arrow functions da calismadi!!!
+combine(
+  showResult.bind(this, "the result after adding all number is: "),
+  "ADD",
+  1,
+  5,
+  10,
+  -3,
+  6,
+  10
+);
+combine(
+  showResult.bind(this, "the result after adding all number is: "),
+  "ADD",
+  1,
+  5,
+  10,
+  -3,
+  6,
+  10,
+  25,
+  88
+);
+
+combine(
+  showResult.bind(this, "the result after subtracting all number is: "),
+  "SUBTRACT",
+  1,
+  5,
+  10,
+  20
+); // arrow functions da calismadi!!!
 
 // assignment 4
 const sayHello = (name, phrase = "hi") => console.log(phrase + " " + name);
