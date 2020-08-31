@@ -107,3 +107,29 @@ sumUp(showResult, 1, 5, "qsdf", -3, 6, 10);
 sumUp(showResult, 1, 5, 10, -3, 6, 10, 25, 88);
 
 console.log(subtractUp(1, 5, 10, 20)); // arrow functions da calismadi!!!
+
+// assignment 4
+const sayHello = (name, phrase = "hi") => console.log(phrase + " " + name);
+
+function checkInput(callback, ...strings) {
+  let hasEmptyText = false;
+  for (const text of strings) {
+    if (!text) {
+      hasEmptyText = true;
+      break;
+    }
+  }
+  if (!hasEmptyText) {
+    callback();
+  }
+}
+
+checkInput(
+  () => {
+    console.log("all not empty"); // eger asagidaki stringlerden biri empty olursa console da bir sey goremeyecegiz
+  },
+  "hello",
+  "12",
+  "ayla",
+  "esat"
+);
