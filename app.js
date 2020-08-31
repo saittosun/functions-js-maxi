@@ -77,10 +77,14 @@ startGameBtn.addEventListener("click", startGame);
 
 // not related to game
 const sumUp = (...numbers) => {
+  const numberValidate = (number) => {
+    // simply check if number is not a number and if that's the case, replace it with zero and otherwise keep it
+    return isNaN(number) ? 0 : number;
+  }
   //(a,b,...numbers) olabilir ama (...numbers, a, b) olmaz
   let sum = 0;
   for (const num of numbers) {
-    sum += num;
+    sum += numberValidate(num);
   }
   return sum;
 };
@@ -95,7 +99,7 @@ const subtractUp = function () {
   return sum;
 };
 
-console.log(sumUp(1, 5, 10, -3, 6, 10));
+console.log(sumUp(1, 5, 'qsdf', -3, 6, 10));
 console.log(sumUp(1, 5, 10, -3, 6, 10, 25, 88));
 
 console.log(subtractUp(1, 5, 10, 20)); // arrow functions da calismadi!!!
